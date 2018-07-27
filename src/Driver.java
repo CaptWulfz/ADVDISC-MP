@@ -7,19 +7,19 @@ public class Driver {
 		// TODO Auto-generated method stub
 		
 		List<Vector> vectors = new ArrayList<Vector>(); 
-		double[] d1 = {1, 2, 3, 4};
-		vectors.add(new Vector(d1, 4));
-		double[] d2 = {0, 0, 3, 4};
-		vectors.add(new Vector(d2, 4));
-		double[] d3 = {0, 2, 3, 4};
-		vectors.add(new Vector(d3, 4));
-		double[] d4 = {1, 2, 3, 4};
-		vectors.add(new Vector(d4, 4));
+		double[] d1 = {0, 4, 1};
+		vectors.add(new Vector(d1, 3));
+		double[] d2 = {2, 6, -2};
+		vectors.add(new Vector(d2, 3));
+		double[] d3 = {4, 8, -5};
+		vectors.add(new Vector(d3, 3));
+		//double[] d4 = {1, 2, 3, 4};
+		//vectors.add(new Vector(d4, 4));
 		
-		double[] d5 = {1, 2, 3, 4};
-		Vector constants = new Vector(d5, 4);
+		double[] d5 = {2, 3, 4};
+		Vector constants = new Vector(d5, 3);
 		
-		Vector.Gauss_Jordan(vectors, 4, constants);
+		Vector.Gauss_Jordan(vectors, 3, constants);
 	}
 
 }

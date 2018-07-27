@@ -75,19 +75,33 @@ public class Vector {
 				}
 			}
 			
-			for(int i = 0; i < rank.length; i++){
-				System.out.println(rank[i]);
+			//Step 2, reduce to row echelon form up to bottom
+			int crrntTop = 0;
+			for(int i = 0; i < listDem; i ++){
+				for(int j = i; j < vectors.size(); j++){
+					if(i == j && vectors.get(j).getDimensions()[i] != 1 && vectors.get(j).getDimensions()[i] != 0){
+						//DIVIDES TOP NON ECHELON ROW BY THE FIRST INT, TO PRODUCES 1
+						crrntTop = j;
+						constants.getDimensions()[i] *= 1/vectors.get(crrntTop).getDimensions()[i];
+						vectors.set(j, vectors.get(j).scale(1/vectors.get(crrntTop).getDimensions()[i]));
+					}else if(vectors.get(j).getDimensions()[i] != 0){
+						//ALL SUBSEQUENT ROWS USE TOP ROW WITH 1, MULTIPLY 1 WITH THE NON 0 INT'S NEGATIVE, AND ADD DOWN  
+						Vector scaledTemp = new Vector(listDem);
+						scaledTemp = vectors.get(crrntTop).scale(-vectors.get(j).getDimensions()[i]);
+						double scaledConst = constants.getDimensions()[crrntTop] * -vectors.get(j).getDimensions()[i];
+						vectors.set(j,vectors.get(j).add(scaledTemp));
+						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
+					}
+				}
 			}
 			
 			for(int i = 0; i < rank.length; i++){
 				System.out.println(vectors.get(i).getDimensions()[0] + " "
 								   + vectors.get(i).getDimensions()[1] + " "
 								   + vectors.get(i).getDimensions()[2] + " "
-								   + vectors.get(i).getDimensions()[3] + " "
+								   //+ vectors.get(i).getDimensions()[3] + " "
 								   + constants.getDimensions()[i]);
 			}
-			
-			//Step 2, reduce to row echelon form up to bottom
 			
 			//Step 3, perform row echelon from bottom up
 			return vector;
