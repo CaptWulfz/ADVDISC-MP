@@ -75,16 +75,26 @@ public class Vector {
 				}
 			}
 			
+			for(int i = 0; i < rank.length; i++){
+				System.out.println(vectors.get(i).getDimensions()[0] + " "
+								   + vectors.get(i).getDimensions()[1] + " "
+								   + vectors.get(i).getDimensions()[2] + " "
+								   //+ vectors.get(i).getDimensions()[3] + " "
+								   + constants.getDimensions()[i]);
+			}
+			System.out.println();
+			
 			//Step 2, reduce to row echelon form up to bottom
 			int crrntTop = 0;
 			for(int i = 0; i < listDem; i ++){
+				crrntTop = i;
 				for(int j = i; j < vectors.size(); j++){
 					if(i == j && vectors.get(j).getDimensions()[i] != 1 && vectors.get(j).getDimensions()[i] != 0){
 						//DIVIDES TOP NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
-						crrntTop = j;
 						constants.getDimensions()[i] *= 1/vectors.get(crrntTop).getDimensions()[i];
 						vectors.set(j, vectors.get(j).scale(1/vectors.get(crrntTop).getDimensions()[i]));
-					}else if(vectors.get(j).getDimensions()[i] != 0){
+						
+					}else if(i != j && vectors.get(j).getDimensions()[i] != 0){
 						//ALL SUBSEQUENT ROWS USE TOP ROW WITH 1, MULTIPLY 1 WITH THE NON 0 INT'S NEGATIVE, AND ADD DOWN  
 						Vector scaledTemp = new Vector(listDem);
 						scaledTemp = vectors.get(crrntTop).scale(-vectors.get(j).getDimensions()[i]);
@@ -96,15 +106,16 @@ public class Vector {
 			}
 			
 			//checks for all zero rows, to return null if found
+			/*
 			for(int i = 0; i < vectors.size(); i ++){
 				for(int j = 0; j < listDem; j++){
 					if(vectors.get(i).getDimensions()[j]!=0){
 						j = listDem;
 					}
-					if(j == listDem-1)
+					if(j == listDem-1 && vectors.get(i).getDimensions()[j]==0)
 						return null;
 				}
-			}
+			}*/
 			
 			for(int i = 0; i < rank.length; i++){
 				System.out.println(vectors.get(i).getDimensions()[0] + " "
@@ -115,6 +126,7 @@ public class Vector {
 			}
 			
 			//Step 3, perform row echelon from bottom up
+			
 			return vector;
 		}
 		else return null;
