@@ -80,7 +80,7 @@ public class Vector {
 			for(int i = 0; i < listDem; i ++){
 				for(int j = i; j < vectors.size(); j++){
 					if(i == j && vectors.get(j).getDimensions()[i] != 1 && vectors.get(j).getDimensions()[i] != 0){
-						//DIVIDES TOP NON ECHELON ROW BY THE FIRST INT, TO PRODUCES 1
+						//DIVIDES TOP NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
 						crrntTop = j;
 						constants.getDimensions()[i] *= 1/vectors.get(crrntTop).getDimensions()[i];
 						vectors.set(j, vectors.get(j).scale(1/vectors.get(crrntTop).getDimensions()[i]));
@@ -92,6 +92,17 @@ public class Vector {
 						vectors.set(j,vectors.get(j).add(scaledTemp));
 						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
 					}
+				}
+			}
+			
+			//checks for all zero rows, to return null if found
+			for(int i = 0; i < vectors.size(); i ++){
+				for(int j = 0; j < listDem; j++){
+					if(vectors.get(i).getDimensions()[j]!=0){
+						j = listDem;
+					}
+					if(j == listDem-1)
+						return null;
 				}
 			}
 			

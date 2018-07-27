@@ -19,7 +19,7 @@ public class Driver {
 		double[] d5 = {2, 3, 4};
 		Vector constants = new Vector(d5, 3);
 		
-		Vector.Gauss_Jordan(vectors, 3, constants);
+		System.out.println(Vector.Gauss_Jordan(vectors, 3, constants));
 	}
 
 }
