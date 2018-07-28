@@ -5,6 +5,7 @@ public class Vector {
 	
 	private double[] dimensions;
 	private int dimension;
+	private static int span;
 	
 	public Vector(int dimension) {
 		this.dimension = dimension;
@@ -40,6 +41,10 @@ public class Vector {
 	
 	public int getDimension() {
 		return this.dimension;
+	}
+
+	public int getSpan(){
+		return span;
 	}
 	
 	public static Vector Gauss_Jordan(List<Vector> vectors, int dimension, Vector constants) {
@@ -145,7 +150,22 @@ public class Vector {
 						return null;
 				}
 			}
-			
+
+			//checks if has NON zero rows to check SPAN
+			span = 0;
+			int ctr;
+			for (int i = 0; i < vectors.size(); i++) {
+				ctr = 0;
+				for (int j = 0; j < listDem; j++) {
+					// System.out.print(vectors.get(i).getDimensions()[j] + " ");
+					if (vectors.get(i).getDimensions()[j] > 0)
+						ctr++;
+				}
+				if (ctr > 0)
+					span++;
+				// System.out.println();
+			}
+
 			return constants;
 		}
 		else return null;

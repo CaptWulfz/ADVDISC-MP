@@ -19,8 +19,17 @@ public class Driver {
 		double[] d5 = {5, 8, 2};
 		Vector constants = new Vector(d5, 3);
 		
-		System.out.println(Vector.Gauss_Jordan(vectors, 3, constants));
-		//Vector.Gauss_Jordan(vectors, 3, constants);
+		// System.out.println(Vector.Gauss_Jordan(vectors, 3, constants));
+		Vector sample = Vector.Gauss_Jordan(vectors, 3, constants);
+		double[] vector = sample.getDimensions();
+
+		System.out.print("[");
+		for (int i = 0; i < vector.length; i++){
+			System.out.print(vector[i] + " ");
+		}
+		System.out.println("]");
+
+		System.out.println(sample.getSpan());
 	}
 
 }
