@@ -151,6 +151,14 @@ public class Vector {
 				}
 			}
 
+			//JUST TO PRINT YOU CAN DELETE
+			for (int i = 0; i < vectors.size(); i++) {
+				for (int j = 0; j < listDem; j++) {
+					System.out.print(vectors.get(i).getDimensions()[j] + " ");
+				}
+				System.out.println();
+			}
+
 			//checks if has NON zero rows to check SPAN
 			span = 0;
 			int ctr;
