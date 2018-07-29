@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,6 +44,9 @@ public class Vector {
 	}
 	
 	public static Vector Gauss_Jordan(List<Vector> vectors, int dimension, Vector constants) {
+		
+		vectors = inputConverter(vectors);
+
 		if(vectors.size() == dimension){
 			//Step 1, sort based on position of 1st non zero element
 			int[] rank = new int[vectors.size()];
@@ -95,6 +99,14 @@ public class Vector {
 				}
 			}
 			
+			for(int i = 0; i < vectors.size(); i++){
+				System.out.println(vectors.get(i).getDimensions()[0] + " "
+								   + vectors.get(i).getDimensions()[1] + " "
+								   + vectors.get(i).getDimensions()[2] + " "
+								   //+ vectors.get(i).getDimensions()[3] + " "
+								   + constants.getDimensions()[i]);
+			}
+			
 			//checks for all zero rows, to return null if found
 			for(int i = 0; i < vectors.size(); i ++){
 				for(int j = 0; j < listDem; j++){
@@ -126,14 +138,6 @@ public class Vector {
 					}
 				}
 			}
-			/*
-			for(int i = 0; i < rank.length; i++){
-				System.out.println(vectors.get(i).getDimensions()[0] + " "
-								   + vectors.get(i).getDimensions()[1] + " "
-								   + vectors.get(i).getDimensions()[2] + " "
-								   //+ vectors.get(i).getDimensions()[3] + " "
-								   + constants.getDimensions()[i]);
-			}*/
 			
 			//checks for all zero rows, to return null if found
 			for(int i = 0; i < vectors.size(); i ++){
@@ -149,5 +153,21 @@ public class Vector {
 			return constants;
 		}
 		else return null;
+	}
+	
+	public static List<Vector> inputConverter(List<Vector> vectors){
+		List<Vector> newVectors = new ArrayList<Vector>();
+		
+		for(int i = 0; i < vectors.get(0).getDimension(); i++){
+			newVectors.add(new Vector(vectors.size()));
+		}
+		for(int i = 0; i < vectors.get(0).getDimension(); i++){
+			for(int j = 0; j < vectors.size(); j++){
+				newVectors.get(i).getDimensions()[j] = vectors.get(j).getDimensions()[i];
+			}
+		}
+		
+		
+		return newVectors;
 	}
 }
