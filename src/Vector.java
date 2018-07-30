@@ -155,11 +155,17 @@ public class Vector {
 				}
 			}
 
-			generateSpan(vectors);
+			// generateSpan(vectors);
 			
 			return constants;
 		}
 		else return null;
+	}
+
+	public static int span(List<Vector> vectors, int dimension){
+
+
+		return span;
 	}
 
 	public static void generateSpan(List<Vector> vectors){
