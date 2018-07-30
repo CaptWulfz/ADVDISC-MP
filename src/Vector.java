@@ -44,10 +44,6 @@ public class Vector {
 		return this.dimension;
 	}
 
-	public int getSpan(){
-		return this.span;
-	}
-	
 	public static Vector Gauss_Jordan(List<Vector> vectors, int dimension, Vector constants) {
 		
 		vectors = inputConverter(vectors);
@@ -155,7 +151,7 @@ public class Vector {
 				}
 			}
 
-			// generateSpan(vectors);
+			generateSpan(vectors);
 			
 			return constants;
 		}

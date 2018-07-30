@@ -23,7 +23,8 @@ public class Driver {
 		System.out.println(sample);
 		//Vector.Gauss_Jordan(vectors, 3, constants);
 
-		System.out.println("Span: " + sample.getSpan());
+		System.out.println("Span: " + sample.span(vectors, constants.getDimension()));
+		// System.out.println("Span: " + sample.getSpan());
 	}
 
 	
