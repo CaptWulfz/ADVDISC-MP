@@ -6,6 +6,7 @@ public class Vector {
 	
 	private double[] dimensions;
 	private int dimension;
+	private static int span;
 	
 	public Vector(int dimension) {
 		this.dimension = dimension;
@@ -41,6 +42,10 @@ public class Vector {
 	
 	public int getDimension() {
 		return this.dimension;
+	}
+
+	public int getSpan(){
+		return this.span;
 	}
 	
 	public static Vector Gauss_Jordan(List<Vector> vectors, int dimension, Vector constants) {
@@ -149,10 +154,31 @@ public class Vector {
 						return null;
 				}
 			}
+
+			generateSpan(vectors);
 			
 			return constants;
 		}
 		else return null;
+	}
+
+	public static void generateSpan(List<Vector> vectors){
+		int listDem = vectors.get(0).getDimension();
+
+		int ctr;
+		for (int i = 0; i < vectors.size(); i++) {
+			ctr = 0;
+			for(int j = 0; j < listDem; j++){
+				if (vectors.get(i).getDimensions()[j] > 0)
+					ctr++;
+				// System.out.print(vectors.get(i).getDimensions()[j] + " ");
+			}
+
+			if (ctr > 0){
+				span++;
+			}
+			// System.out.println();
+		}
 	}
 	
 	public static List<Vector> inputConverter(List<Vector> vectors){
