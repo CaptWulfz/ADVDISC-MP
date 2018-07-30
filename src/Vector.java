@@ -48,7 +48,7 @@ public class Vector {
 		
 		vectors = inputConverter(vectors);
 
-		if(vectors.size() == dimension){
+		if(vectors.size() == constants.getDimension()){
 			//Step 1, sort based on position of 1st non zero element
 			int[] rank = new int[vectors.size()];
 			int listDem =  vectors.get(0).getDimension();
