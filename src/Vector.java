@@ -99,23 +99,17 @@ public class Vector {
 					}
 				}
 			}
-			
-			for(int i = 0; i < vectors.size(); i++){
-				System.out.println(vectors.get(i).getDimensions()[0] + " "
-								   + vectors.get(i).getDimensions()[1] + " "
-								   + vectors.get(i).getDimensions()[2] + " "
-								   //+ vectors.get(i).getDimensions()[3] + " "
-								   + constants.getDimensions()[i]);
-			}
-			
 			//checks for all zero rows, to return null if found
 			for(int i = 0; i < vectors.size(); i ++){
 				for(int j = 0; j < listDem; j++){
 					if(vectors.get(i).getDimensions()[j]!=0){
 						j = listDem;
 					}
-					if(j == listDem-1 && vectors.get(i).getDimensions()[j]==0)
+					if(j == listDem-1 && vectors.get(i).getDimensions()[j]==0){
+						generateSpan(vectors);
 						return null;
+					}
+						
 				}
 			}
 			
@@ -146,27 +140,44 @@ public class Vector {
 					if(vectors.get(i).getDimensions()[j]!=0){
 						j = listDem;
 					}
-					if(j == listDem-1 && vectors.get(i).getDimensions()[j]==0)
+					if(j == listDem-1 && vectors.get(i).getDimensions()[j]==0){
+						generateSpan(vectors);
 						return null;
+					}
+						
 				}
 			}
-
-			generateSpan(vectors);
 			
+			for(int i = 0; i < vectors.size(); i++){
+				System.out.println(vectors.get(i).getDimensions()[0] + " "
+								   + vectors.get(i).getDimensions()[1] + " "
+								   + vectors.get(i).getDimensions()[2] + " "
+								   //+ vectors.get(i).getDimensions()[3] + " "
+								   + constants.getDimensions()[i]);
+			}
+			
+			generateSpan(vectors);
 			return constants;
 		}
-		else return null;
+		else {
+			generateSpan(vectors);
+			return null;
+		}
 	}
 
 	public static int span(List<Vector> vectors, int dimension){
-
-
+		double[] d = new double[dimension];
+		for(int i = 0; i< dimension; i++)
+			d[i] = 1;
+		Vector constants = new Vector(d, dimension);
+		
+		Gauss_Jordan(vectors, dimension, constants);
 		return span;
 	}
 
 	public static void generateSpan(List<Vector> vectors){
 		int listDem = vectors.get(0).getDimension();
-
+		span = 0;
 		int ctr;
 		for (int i = 0; i < vectors.size(); i++) {
 			ctr = 0;
