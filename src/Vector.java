@@ -47,37 +47,23 @@ public class Vector {
 	public static Vector Gauss_Jordan(List<Vector> vectors, int dimension, Vector constants) {
 		
 		vectors = inputConverter(vectors);
+		
+		System.out.println("Start");
+		for(int i = 0; i < vectors.size(); i++){
+			System.out.println(vectors.get(i).getDimensions()[0] + " "
+							   + vectors.get(i).getDimensions()[1] + " "
+							   + vectors.get(i).getDimensions()[2] + " "
+							   //+ vectors.get(i).getDimensions()[3] + " "
+							   + constants.getDimensions()[i]);
+		}
+		System.out.println();
 
 		if(vectors.size() == constants.getDimension()){
 			//Step 1, sort based on position of 1st non zero element
 			int[] rank = new int[vectors.size()];
 			int listDem =  vectors.get(0).getDimension();
-			
-			for(int i = 0; i < vectors.size(); i++){
-				for(int j = 0; j < listDem; j++){
-					if(vectors.get(i).getDimensions()[j] != 0){
-						rank[i] = j;
-						j = listDem;
-					} else rank[i] = listDem; 
-				}
-			}
-			
-			for(int i = 0; i < rank.length; i++){
-				for(int j = i+1; j < rank.length; j++){
-					if(rank[i] > rank[j]){
-						//swap rank
-						rank[i] += rank[j];
-						rank[j] = rank[i] - rank[j];
-						rank[i] -= rank[j];
-						//swap list
-						Collections.swap(vectors, i, j);
-						//swap constraint
-						constants.getDimensions()[i] += constants.getDimensions()[j];
-						constants.getDimensions()[j] = constants.getDimensions()[i] - constants.getDimensions()[j];
-						constants.getDimensions()[i] -= constants.getDimensions()[j];
-					}
-				}
-			}
+			constants = sortConstants(vectors, constants);
+			vectors = sortVectorList(vectors, constants);
 			
 			//Step 2, reduce to row echelon form up to bottom
 			int crrntTop = 0;
@@ -96,9 +82,22 @@ public class Vector {
 						double scaledConst = constants.getDimensions()[crrntTop] * -vectors.get(j).getDimensions()[i];
 						vectors.set(j,vectors.get(j).add(scaledTemp));
 						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
+						constants = sortConstants(vectors, constants);
+						vectors = sortVectorList(vectors, constants);
 					}
 				}
 			}
+			
+			System.out.println("2nd");
+			for(int i = 0; i < vectors.size(); i++){
+				System.out.println(vectors.get(i).getDimensions()[0] + " "
+								   + vectors.get(i).getDimensions()[1] + " "
+								   + vectors.get(i).getDimensions()[2] + " "
+								   //+ vectors.get(i).getDimensions()[3] + " "
+								   + constants.getDimensions()[i]);
+			}
+			System.out.println();
+			
 			//checks for all zero rows, to return null if found
 			for(int i = 0; i < vectors.size(); i ++){
 				for(int j = 0; j < listDem; j++){
@@ -130,6 +129,8 @@ public class Vector {
 						double scaledConst = constants.getDimensions()[crrntBottom] * -vectors.get(j).getDimensions()[i];
 						vectors.set(j,vectors.get(j).add(scaledTemp));
 						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
+						constants = sortConstants(vectors, constants);
+						vectors = sortVectorList(vectors, constants);
 					}
 				}
 			}
@@ -147,14 +148,15 @@ public class Vector {
 						
 				}
 			}
-			/*
+			
+			System.out.println("Third");
 			for(int i = 0; i < vectors.size(); i++){
 				System.out.println(vectors.get(i).getDimensions()[0] + " "
 								   + vectors.get(i).getDimensions()[1] + " "
 								   + vectors.get(i).getDimensions()[2] + " "
 								   //+ vectors.get(i).getDimensions()[3] + " "
 								   + constants.getDimensions()[i]);
-			}*/
+			}
 			
 			generateSpan(vectors);
 			return constants;
@@ -163,6 +165,77 @@ public class Vector {
 			generateSpan(vectors);
 			return null;
 		}
+	}
+	
+	private static List<Vector> sortVectorsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static List<Vector> sortVectorList(List<Vector> vectors, Vector constants){
+		int[] rank = new int[vectors.size()];
+		int listDem =  vectors.get(0).getDimension();
+		
+		for(int i = 0; i < vectors.size(); i++){
+			for(int j = 0; j < listDem; j++){
+				if(vectors.get(i).getDimensions()[j] != 0){
+					rank[i] = j;
+					j = listDem;
+				} else rank[i] = listDem; 
+			}
+		}
+		
+		for(int i = 0; i < rank.length; i++){
+			for(int j = i+1; j < rank.length; j++){
+				if(rank[i] > rank[j]){
+					//swap rank
+					rank[i] += rank[j];
+					rank[j] = rank[i] - rank[j];
+					rank[i] -= rank[j];
+					//swap list
+					Collections.swap(vectors, i, j);
+					//swap constraint
+					constants.getDimensions()[i] += constants.getDimensions()[j];
+					constants.getDimensions()[j] = constants.getDimensions()[i] - constants.getDimensions()[j];
+					constants.getDimensions()[i] -= constants.getDimensions()[j];
+				}
+			}
+		}
+		
+		return vectors;
+	}
+	
+	public static Vector sortConstants(List<Vector> vectors, Vector constants){
+		int[] rank = new int[vectors.size()];
+		int listDem =  vectors.get(0).getDimension();
+		
+		for(int i = 0; i < vectors.size(); i++){
+			for(int j = 0; j < listDem; j++){
+				if(vectors.get(i).getDimensions()[j] != 0){
+					rank[i] = j;
+					j = listDem;
+				} else rank[i] = listDem; 
+			}
+		}
+		
+		for(int i = 0; i < rank.length; i++){
+			for(int j = i+1; j < rank.length; j++){
+				if(rank[i] > rank[j]){
+					//swap rank
+					rank[i] += rank[j];
+					rank[j] = rank[i] - rank[j];
+					rank[i] -= rank[j];
+					//swap list
+					Collections.swap(vectors, i, j);
+					//swap constraint
+					constants.getDimensions()[i] += constants.getDimensions()[j];
+					constants.getDimensions()[j] = constants.getDimensions()[i] - constants.getDimensions()[j];
+					constants.getDimensions()[i] -= constants.getDimensions()[j];
+				}
+			}
+		}
+		
+		return constants;
 	}
 
 	public static int span(List<Vector> vectors, int dimension){
