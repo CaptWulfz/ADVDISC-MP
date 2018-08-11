@@ -61,7 +61,7 @@ public class Matrix {
 	public double det(){
 		Matrix temp = new Matrix( matrix, dimension);
 		List<Vector> tMatrix = temp.getMatrix();
-		tMatrix = Vector.inputConverter(tMatrix)
+		tMatrix = Vector.inputConverter(tMatrix);
 		Vector tVector = null;
 		double det = 1;
 		sign = 1;
