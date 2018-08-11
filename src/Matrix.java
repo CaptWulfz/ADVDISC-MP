@@ -59,7 +59,9 @@ public class Matrix {
     }
 	
 	public double det(){
-		List<Vector> tMatrix = matrix;
+		Matrix temp = new Matrix( matrix, dimension);
+		List<Vector> tMatrix = temp.getMatrix();
+		tMatrix = Vector.inputConverter(tMatrix)
 		Vector tVector = null;
 		double det = 1;
 		sign = 1;
@@ -85,7 +87,7 @@ public class Matrix {
 			
 		}
 		
-        return det*sign; //dummy
+        return det*sign; 
     }
 
     public Matrix inverse(){
