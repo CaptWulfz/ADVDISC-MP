@@ -147,14 +147,6 @@ public class Vector {
 						
 				}
 			}
-			/*
-			for(int i = 0; i < vectors.size(); i++){
-				System.out.println(vectors.get(i).getDimensions()[0] + " "
-								   + vectors.get(i).getDimensions()[1] + " "
-								   + vectors.get(i).getDimensions()[2] + " "
-								   //+ vectors.get(i).getDimensions()[3] + " "
-								   + constants.getDimensions()[i]);
-			}*/
 			
 			generateSpan(vectors);
 			return constants;
