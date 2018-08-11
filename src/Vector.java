@@ -47,7 +47,6 @@ public class Vector {
 	public static Vector Gauss_Jordan(List<Vector> vectors, int dimension, Vector constants) {
 		
 		vectors = inputConverter(vectors);
-		
 		/*
 		System.out.println("Start");
 		for(int i = 0; i < vectors.size(); i++){
@@ -85,10 +84,9 @@ public class Vector {
 						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
 					}
 				}
-                constants = sortConstants(vectors, constants);
+				constants = sortConstants(vectors, constants);
 				vectors = sortVectorList(vectors, constants);
 			}
-			
 			/*
 			System.out.println("2nd");
 			for(int i = 0; i < vectors.size(); i++){
@@ -133,7 +131,7 @@ public class Vector {
 						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
 					}
 				}
-                constants = sortConstants(vectors, constants);
+				constants = sortConstants(vectors, constants);
 				vectors = sortVectorList(vectors, constants);
 			}
 			
@@ -150,6 +148,7 @@ public class Vector {
 						
 				}
 			}
+			
 			/*
 			System.out.println("Third");
 			for(int i = 0; i < vectors.size(); i++){

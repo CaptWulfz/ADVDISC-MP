@@ -7,26 +7,25 @@ public class Driver {
 		// TODO Auto-generated method stub
 		
 		List<Vector> vectors = new ArrayList<Vector>(); 
-		double[] d1 = {1, 1, 0};
-		vectors.add(new Vector(d1, 3));
-		double[] d2 = {2, 2, 1};
-		vectors.add(new Vector(d2, 3));
-		double[] d3 = {4, 6, 2};
-		vectors.add(new Vector(d3, 3));
-		//double[] d4 = {1, 2, 3, 4};
-		//vectors.add(new Vector(d4, 4));
+		double[] d1 = {1, 2, 3, 5};
+		vectors.add(new Vector(d1, 4));
+		double[] d2 = {1, 2, 9, 11};
+		vectors.add(new Vector(d2, 4));
+		double[] d3 = {4, 10, 21, 29};
+		vectors.add(new Vector(d3, 4));
+		double[] d4 = {1, 6, 17, 23};
+		vectors.add(new Vector(d4, 4));
 		
-		double[] d5 = {5, 8, 2};
-		Vector constants = new Vector(d5, 3);
+		double[] d5 = {5, 8, 2, 1};
+		Vector constants = new Vector(d5, 4);
 
-		Vector sample = Vector.Gauss_Jordan(vectors, constants.getDimension(), constants);
-		System.out.println(sample);
+		//Vector sample = Vector.Gauss_Jordan(vectors, constants.getDimension(), constants);
+		//System.out.println(sample);
 		//Vector.Gauss_Jordan(vectors, 3, constants);
 
-		System.out.println("Span: " + sample.span(vectors, constants.getDimension()));
+		//System.out.println("Span: " + sample.span(vectors, constants.getDimension()));
 		// System.out.println("Span: " + sample.getSpan());
-		
-		Matrix matrix = new Matrix(4);
+		Matrix matrix = new Matrix(vectors, 4);
 		
 		for (int i = 0; i < matrix.getMatrix().size(); i++) {
 			Vector vector = matrix.getMatrix().get(i);
@@ -34,6 +33,8 @@ public class Driver {
 				System.out.print(vector.getDimensions()[j] + " ");
 			System.out.println();
 		}
+		
+		System.out.println(matrix.det());
 	}
 
 	

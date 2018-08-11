@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Matrix {
 	private List<Vector> matrix;
 	private int dimension;
+	private int sign;
 	
 	public Matrix(int dimension) {
 		matrix = new ArrayList<Vector>();
@@ -21,7 +23,7 @@ public class Matrix {
 	}
 	
 	public Matrix (List<Vector> list, int dimension) {
-        list = Vector.inputConverter(list);
+		list = Vector.inputConverter(list);
 		this.matrix = list;
 		this.dimension = dimension;
 	}
@@ -31,7 +33,33 @@ public class Matrix {
     }
 	
 	public double det(){
-        return 0; //dummy
+		List<Vector> tMatrix = matrix;
+		Vector tVector = null;
+		double det = 1;
+		sign = 1;
+		
+		//Step 1 sort list
+		tMatrix = sortMatrixList(tMatrix);
+		//Step 2, reduce to row echelon form up to bottom, while preserving value
+		int crrntTop = 0;
+		for(int i = 0; i < dimension; i ++){
+			crrntTop = i;
+			for(int j = i; j < dimension; j++){
+				if(i == j && tMatrix.get(j).getDimensions()[i] != 0){
+					tVector = tMatrix.get(j).scale(1/tMatrix.get(crrntTop).getDimensions()[i]);
+					det*=tMatrix.get(crrntTop).getDimensions()[i];
+				}
+				else if(i != j && tMatrix.get(j).getDimensions()[i] != 0){
+					Vector scaledTemp = new Vector(dimension);
+					scaledTemp = tVector.scale(-tMatrix.get(j).getDimensions()[i]);
+					tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
+				}
+			}
+			tMatrix = sortMatrixList(tMatrix);
+			
+		}
+		
+        return det*sign; //dummy
     }
 
     public Matrix inverse(){
@@ -52,5 +80,35 @@ public class Matrix {
 
 	public void setDimension(int dimension) {
 		this.dimension = dimension;
+	}
+	
+	public List<Vector> sortMatrixList(List<Vector> vectors){
+		int[] rank = new int[vectors.size()];
+		int listDem =  vectors.get(0).getDimension();
+		
+		for(int i = 0; i < vectors.size(); i++){
+			for(int j = 0; j < listDem; j++){
+				if(vectors.get(i).getDimensions()[j] != 0){
+					rank[i] = j;
+					j = listDem;
+				} else rank[i] = listDem; 
+			}
+		}
+		
+		for(int i = 0; i < rank.length; i++){
+			for(int j = i+1; j < rank.length; j++){
+				if(rank[i] > rank[j]){
+					sign*=-1;
+					//swap rank
+					rank[i] += rank[j];
+					rank[j] = rank[i] - rank[j];
+					rank[i] -= rank[j];
+					//swap list
+					Collections.swap(vectors, i, j);
+				}
+			}
+		}
+		
+		return vectors;
 	}
 }
