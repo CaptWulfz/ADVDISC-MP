@@ -83,10 +83,10 @@ public class Vector {
 						double scaledConst = constants.getDimensions()[crrntTop] * -vectors.get(j).getDimensions()[i];
 						vectors.set(j,vectors.get(j).add(scaledTemp));
 						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
-						constants = sortConstants(vectors, constants);
-						vectors = sortVectorList(vectors, constants);
 					}
 				}
+                constants = sortConstants(vectors, constants);
+				vectors = sortVectorList(vectors, constants);
 			}
 			
 			/*
@@ -131,10 +131,10 @@ public class Vector {
 						double scaledConst = constants.getDimensions()[crrntBottom] * -vectors.get(j).getDimensions()[i];
 						vectors.set(j,vectors.get(j).add(scaledTemp));
 						constants.getDimensions()[j] = scaledConst + constants.getDimensions()[j];
-						constants = sortConstants(vectors, constants);
-						vectors = sortVectorList(vectors, constants);
 					}
 				}
+                constants = sortConstants(vectors, constants);
+				vectors = sortVectorList(vectors, constants);
 			}
 			
 			//checks for all zero rows, to return null if found
