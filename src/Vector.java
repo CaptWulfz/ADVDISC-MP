@@ -47,17 +47,6 @@ public class Vector {
 	public static Vector Gauss_Jordan(List<Vector> vectors, int dimension, Vector constants) {
 		
 		vectors = inputConverter(vectors);
-		
-		/*
-		System.out.println("Start");
-		for(int i = 0; i < vectors.size(); i++){
-			System.out.println(vectors.get(i).getDimensions()[0] + " "
-							   + vectors.get(i).getDimensions()[1] + " "
-							   + vectors.get(i).getDimensions()[2] + " "
-							   //+ vectors.get(i).getDimensions()[3] + " "
-							   + constants.getDimensions()[i]);
-		}
-		System.out.println();*/
 
 		if(vectors.size() == constants.getDimension()){
 			//Step 1, sort based on position of 1st non zero element
@@ -89,16 +78,6 @@ public class Vector {
 				}
 			}
 			
-			/*
-			System.out.println("2nd");
-			for(int i = 0; i < vectors.size(); i++){
-				System.out.println(vectors.get(i).getDimensions()[0] + " "
-								   + vectors.get(i).getDimensions()[1] + " "
-								   + vectors.get(i).getDimensions()[2] + " "
-								   //+ vectors.get(i).getDimensions()[3] + " "
-								   + constants.getDimensions()[i]);
-			}
-			System.out.println();*/
 			
 			//checks for all zero rows, to return null if found
 			for(int i = 0; i < vectors.size(); i ++){
@@ -150,18 +129,6 @@ public class Vector {
 						
 				}
 			}
-<<<<<<< HEAD
-=======
-			/*
-			System.out.println("Third");
-			for(int i = 0; i < vectors.size(); i++){
-				System.out.println(vectors.get(i).getDimensions()[0] + " "
-								   + vectors.get(i).getDimensions()[1] + " "
-								   + vectors.get(i).getDimensions()[2] + " "
-								   //+ vectors.get(i).getDimensions()[3] + " "
-								   + constants.getDimensions()[i]);
-			}*/
->>>>>>> 1195883dfb4c159a28ab49bbd661a771f727f8f8
 			
 			generateSpan(vectors);
 			return constants;
