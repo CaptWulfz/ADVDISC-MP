@@ -21,6 +21,7 @@ public class Matrix {
 	}
 	
 	public Matrix (List<Vector> list, int dimension) {
+        list = Vector.inputConverter(list);
 		this.matrix = list;
 		this.dimension = dimension;
 	}
