@@ -7,11 +7,11 @@ public class Driver {
 		// TODO Auto-generated method stub
 		
 		List<Vector> vectors = new ArrayList<Vector>(); 
-		double[] d1 = {1, 2, 4};
+		double[] d1 = {1, 1, 0};
 		vectors.add(new Vector(d1, 3));
-		double[] d2 = {1, 3, 0};
+		double[] d2 = {2, 2, 1};
 		vectors.add(new Vector(d2, 3));
-		double[] d3 = {1, 5, 5};
+		double[] d3 = {4, 6, 2};
 		vectors.add(new Vector(d3, 3));
 		//double[] d4 = {1, 2, 3, 4};
 		//vectors.add(new Vector(d4, 4));

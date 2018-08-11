@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,17 @@ public class Matrix {
 		this.dimension = dimension;
 	}
 	
-	/*
-	public Matrix times(Matrix other) {
-		
-	}
-	*/
+	public Matrix times(Matrix other){
+        return other;
+    }
+	
+	public double det(){
+        return 0; //dummy
+    }
+
+    public Matrix inverse(){
+        return new Matrix(0); // dummy
+    }
 	
 	public List<Vector> getMatrix() {
 		return matrix;
