@@ -25,11 +25,35 @@ public class Matrix {
 		this.dimension = dimension;
 	}
 	
-	/*
-	public Matrix times(Matrix other) {
-		
-	}
-	*/
+	public Matrix times(Matrix other){
+        if (this.dimension == other.getMatrix().size() || this.matrix.size() == other.getDimension()) {
+        	Matrix newMatrix = null;
+        	List<Vector> list = new ArrayList<Vector>();
+        	for (int i = 0; i < this.matrix.size(); i++) {
+        		
+        		double[] vector = matrix.get(i).getDimensions();
+        		
+        		double[] array = new double[this.matrix.size()];
+        		int index = 0;
+        		for (int k = 0; k < other.getDimension(); k++) {
+        			double value = 0;
+	        		for (int j = 0; j < this.dimension; j++) {
+	        			value += vector[j] * other.getMatrix().get(j).getDimensions()[k];
+	        		}
+	        		array[index] = value;
+	        		index++;
+        		}
+        		list.add(new Vector(array, this.matrix.size()));
+        	}
+        	
+        	newMatrix = new Matrix(list, this.matrix.size());
+        	
+        	return newMatrix;
+        } else {
+        	System.out.println("The Matrices are of different Sizes!");
+        	return null;
+        }
+    }
 	
 	public List<Vector> getMatrix() {
 		return matrix;
