@@ -34,8 +34,9 @@ public class Driver {
 			System.out.println();
 		}
 		
-		System.out.println(matrix.det());
-
+		System.out.println("Deteminant: " + matrix.det());
+		
+		System.out.println("Matrix A x Matrix B:");
 		Matrix matrixA;
 		List<Vector> vectorsA = new ArrayList<Vector>(); 
 		double[] vA1 = {1, 4};
@@ -47,9 +48,6 @@ public class Driver {
 		
 		matrixA = new Matrix(vectorsA, vectorsA.size());
 
-		System.out.println("Matrix A Dimensions: " + matrixA.getDimension());
-		System.out.println("Matrix A Size: " + matrixA.getMatrix().size());
-		
 		Matrix matrixB;
 		List<Vector> vectorsB = new ArrayList<Vector>(); 
 		double[] vB1 = {7, 9, 11};
@@ -58,8 +56,8 @@ public class Driver {
 		vectorsB.add(new Vector(vB2, 3));
 
 		matrixB = new Matrix(vectorsB, vectorsB.size());
-		
 		Matrix matrixC = matrixA.times(matrixB);
+		
 		
 		for (int i = 0; i < matrixC.getMatrix().size(); i++) {
 			Vector vector = matrixC.getMatrix().get(i);
@@ -67,7 +65,8 @@ public class Driver {
 				System.out.print(vector.getDimensions()[j] + " ");
 			System.out.println();
 		}
-
+		
+		System.out.println("Inverse:");
 		matrix.inverse();
 
 	}

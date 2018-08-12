@@ -33,19 +33,18 @@ public class Matrix {
         if (this.dimension == other.getMatrix().size() || this.matrix.size() == other.getDimension()) {
         	Matrix newMatrix = null;
         	List<Vector> list = new ArrayList<Vector>();
-        	for (int i = 0; i < this.matrix.size(); i++) {
-        		
-        		double[] vector = matrix.get(i).getDimensions();
+        	
+        	for (int i = 0; i < other.getDimension(); i++) {
         		
         		double[] array = new double[this.matrix.size()];
         		int index = 0;
-        		for (int k = 0; k < other.getDimension(); k++) {
+        		for (int j = 0; j < this.matrix.size(); j++) {
         			double value = 0;
-	        		for (int j = 0; j < this.dimension; j++) {
-	        			value += vector[j] * other.getMatrix().get(j).getDimensions()[k];
-	        		}
-	        		array[index] = value;
-	        		index++;
+        			for (int k = 0; k < this.getDimension(); k++) {
+        				value += other.getMatrix().get(k).getDimensions()[i] * this.getMatrix().get(j).getDimensions()[k];
+        			}
+        			array[index] = value;
+        			index++;
         		}
         		list.add(new Vector(array, this.matrix.size()));
         	}
