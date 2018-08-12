@@ -34,18 +34,40 @@ public class Driver {
 			System.out.println();
 		}
 		
-		System.out.println(matrix.det());
+		System.out.println("Deteminant: " + matrix.det());
 		
-		for (int i = 0; i < matrix.getMatrix().size(); i++) {
-			Vector vector = matrix.getMatrix().get(i);
+		System.out.println("Matrix A x Matrix B:");
+		Matrix matrixA;
+		List<Vector> vectorsA = new ArrayList<Vector>(); 
+		double[] vA1 = {1, 4};
+		vectorsA.add(new Vector(vA1, 2));
+		double[] vA2 = {2, 5};
+		vectorsA.add(new Vector(vA2, 2));
+		double[] vA3 = {3, 6};
+		vectorsA.add(new Vector(vA3, 2));
+		
+		matrixA = new Matrix(vectorsA, vectorsA.size());
+
+		Matrix matrixB;
+		List<Vector> vectorsB = new ArrayList<Vector>(); 
+		double[] vB1 = {7, 9, 11};
+		vectorsB.add(new Vector(vB1, 3));
+		double[] vB2 = {8, 10, 12};
+		vectorsB.add(new Vector(vB2, 3));
+
+		matrixB = new Matrix(vectorsB, vectorsB.size());
+		Matrix matrixC = matrixA.times(matrixB);
+		
+		
+		for (int i = 0; i < matrixC.getMatrix().size(); i++) {
+			Vector vector = matrixC.getMatrix().get(i);
 			for (int j = 0; j < vector.getDimensions().length; j++)
 				System.out.print(vector.getDimensions()[j] + " ");
 			System.out.println();
 		}
 		
+		System.out.println("Inverse:");
 		matrix.inverse();
+
 	}
-
-	
-
 }
