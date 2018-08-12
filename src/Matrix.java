@@ -62,6 +62,7 @@ public class Matrix {
 		Matrix temp = new Matrix( matrix, dimension);
 		List<Vector> tMatrix = temp.getMatrix();
 		tMatrix = Vector.inputConverter(tMatrix);
+		Vector oVector = null;
 		Vector tVector = null;
 		double det = 1;
 		sign = 1;
@@ -74,18 +75,23 @@ public class Matrix {
 			crrntTop = i;
 			for(int j = i; j < dimension; j++){
 				if(i == j && tMatrix.get(j).getDimensions()[i] != 0){
+					oVector = tMatrix.get(j);
 					tVector = tMatrix.get(j).scale(1/tMatrix.get(crrntTop).getDimensions()[i]);
 					det*=tMatrix.get(crrntTop).getDimensions()[i];
 				}
 				else if(i != j && tMatrix.get(j).getDimensions()[i] != 0){
-					Vector scaledTemp = new Vector(dimension);
-					scaledTemp = tVector.scale(-tMatrix.get(j).getDimensions()[i]);
+					Vector scaledTemp = new Vector(dimension);;
+					if(tMatrix.get(j).getDimensions()[i] != oVector.getDimensions()[i])
+						scaledTemp = tVector.scale(-tMatrix.get(j).getDimensions()[i]);
+					else scaledTemp = oVector.scale(-1);
 					tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
 				}
 			}
 			tMatrix = sortMatrixList(tMatrix);
 			
 		}
+		
+		tMatrix = null;
 		
         return det*sign; 
     }

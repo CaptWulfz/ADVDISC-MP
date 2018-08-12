@@ -35,6 +35,8 @@ public class Driver {
 		}
 		
 		System.out.println(matrix.det());
+		System.out.println(matrix.det());
+		System.out.println(matrix.det());
 	}
 
 	
