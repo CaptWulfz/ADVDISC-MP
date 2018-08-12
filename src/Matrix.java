@@ -100,6 +100,8 @@ public class Matrix {
     	Matrix temp = new Matrix( matrix, dimension);
 		List<Vector> tMatrix = temp.getMatrix();
 		tMatrix = Vector.inputConverter(tMatrix);
+        Matrix iTemp = new Matrix(dimension);
+        inverse = iTemp.getMatrix();
 		Vector orgVector = null;
 		Vector orgiVector = null;
 		
@@ -254,7 +256,7 @@ public class Matrix {
 				}
 			}
     		
-    		return null;
+    		return inverse;
     	}
     	else return null; // dummy
     }
