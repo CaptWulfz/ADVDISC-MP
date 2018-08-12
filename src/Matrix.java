@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Matrix {
 	private List<Vector> matrix;
+	private List<Vector> inverse;
 	private int dimension;
 	private int sign;
 	
@@ -97,7 +98,141 @@ public class Matrix {
     }
 
     public Matrix inverse(){
-        return new Matrix(0); // dummy
+    	Matrix temp = new Matrix( matrix, dimension);
+		List<Vector> tMatrix = temp.getMatrix();
+		tMatrix = Vector.inputConverter(tMatrix);
+		
+    	if(det() != 0){
+    		//Step 1, Sort
+    		tMatrix = sortMatrixList(tMatrix);
+    		/*
+    		System.out.println("after 1");
+    		System.out.println("Matrix");
+			for(int i = 0; i < tMatrix.size(); i++){
+				System.out.println(tMatrix.get(i).getDimensions()[0] + " "
+								   + tMatrix.get(i).getDimensions()[1] + " "
+								   + tMatrix.get(i).getDimensions()[2] + " "
+								   + tMatrix.get(i).getDimensions()[3] + " ");
+			}
+			System.out.println("inverse");
+			for(int i = 0; i < tMatrix.size(); i++){
+				System.out.println(inverse.get(i).getDimensions()[0] + " "
+						   + inverse.get(i).getDimensions()[1] + " "
+						   + inverse.get(i).getDimensions()[2] + " "
+						   + inverse.get(i).getDimensions()[3] + " ");
+			}
+			System.out.println();*/
+    		
+    		//Step 2, reduce to row echelon form up to bottom
+    		int crrntTop = 0;
+			for(int i = 0; i < dimension; i ++){
+				crrntTop = i;
+				for(int j = i; j < dimension; j++){
+					if(i == j && tMatrix.get(j).getDimensions()[i] != 1 && tMatrix.get(j).getDimensions()[i] != 0){
+						//DIVIDES TOP NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
+						inverse.set(j, inverse.get(j).scale(1/tMatrix.get(crrntTop).getDimensions()[i]));
+						tMatrix.set(j, tMatrix.get(j).scale(1/tMatrix.get(crrntTop).getDimensions()[i]));
+						
+					}else if(i != j && tMatrix.get(j).getDimensions()[i] != 0){
+						//ALL SUBSEQUENT ROWS USE TOP ROW WITH 1, MULTIPLY 1 WITH THE NON 0 INT'S NEGATIVE, AND ADD DOWN  
+						double scaleBy = -tMatrix.get(j).getDimensions()[i];
+						Vector scaledTemp = new Vector(dimension);
+						scaledTemp = tMatrix.get(crrntTop).scale(scaleBy);
+						tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
+						scaledTemp = inverse.get(crrntTop).scale(scaleBy);
+						inverse.set(j,inverse.get(j).add(scaledTemp));
+						
+					}
+				}
+				tMatrix = sortMatrixList(tMatrix);
+			}
+			/*
+			System.out.println("after 2");
+			System.out.println("Matrix");
+			for(int i = 0; i < tMatrix.size(); i++){
+				System.out.println(tMatrix.get(i).getDimensions()[0] + " "
+								   + tMatrix.get(i).getDimensions()[1] + " "
+								   + tMatrix.get(i).getDimensions()[2] + " "
+								   + tMatrix.get(i).getDimensions()[3] + " ");
+			}
+			System.out.println("inverse");
+			for(int i = 0; i < tMatrix.size(); i++){
+				System.out.println(inverse.get(i).getDimensions()[0] + " "
+						   + inverse.get(i).getDimensions()[1] + " "
+						   + inverse.get(i).getDimensions()[2] + " "
+						   + inverse.get(i).getDimensions()[3] + " ");
+			}
+			System.out.println();*/
+			
+			//checks for all zero rows, to return null if found
+			for(int i = 0; i < tMatrix.size(); i ++){
+				for(int j = 0; j < dimension; j++){
+					if(tMatrix.get(i).getDimensions()[j]!=0){
+						j = dimension;
+					}
+					if(j == dimension-1 && tMatrix.get(i).getDimensions()[j]==0){
+						return null;
+					}
+						
+				}
+			}
+			
+			//Step 3, perform row echelon from bottom up
+			int crrntBottom = 0;
+			for(int i = dimension -1; i >= 0; i--){
+				crrntBottom = i;
+				for(int j = i; j >= 0; j--){
+					if(i == j && tMatrix.get(j).getDimensions()[i] != 1 && tMatrix.get(j).getDimensions()[i] != 0){
+						//DIVIDES BOTTOM NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
+						inverse.set(j, inverse.get(j).scale(1/tMatrix.get(crrntBottom).getDimensions()[i]));
+						tMatrix.set(j, tMatrix.get(j).scale(1/tMatrix.get(crrntBottom).getDimensions()[i]));
+						
+					}else if(i != j && tMatrix.get(j).getDimensions()[i] != 0){
+						//ALL SUBSEQUENT ROWS USE Bottom ROW WITH 1, MULTIPLY 1 WITH THE NON 0 INT'S NEGATIVE, AND ADD DOWN  
+						double scaleBy = -tMatrix.get(j).getDimensions()[i];
+						Vector scaledTemp = new Vector(dimension);
+						scaledTemp = tMatrix.get(crrntBottom).scale(scaleBy);
+						tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
+						scaledTemp = inverse.get(crrntBottom).scale(scaleBy);
+						inverse.set(j,inverse.get(j).add(scaledTemp));
+					}
+				}
+				tMatrix = sortMatrixList(tMatrix);
+			}
+			/*
+			System.out.println("after 3");
+			System.out.println("Matrix");
+			for(int i = 0; i < tMatrix.size(); i++){
+				System.out.println(tMatrix.get(i).getDimensions()[0] + ", "
+								   + tMatrix.get(i).getDimensions()[1] + ", "
+								   + tMatrix.get(i).getDimensions()[2] + ", "
+								   + tMatrix.get(i).getDimensions()[3] + ", ");
+			}
+			System.out.println("inverse");
+			for(int i = 0; i < tMatrix.size(); i++){
+				System.out.println(inverse.get(i).getDimensions()[0] + ", "
+						   + inverse.get(i).getDimensions()[1] + ", "
+						   + inverse.get(i).getDimensions()[2] + ", "
+						   + inverse.get(i).getDimensions()[3] + ", ");
+			}
+			System.out.println();*/
+			
+			//checks for all zero rows, to return null if found
+			for(int i = 0; i < tMatrix.size(); i ++){
+				for(int j = 0; j < dimension; j++){
+					if(tMatrix.get(i).getDimensions()[j]!=0){
+						j = dimension;
+					}
+					if(j == dimension-1 && tMatrix.get(i).getDimensions()[j]==0){
+						return null;
+					}
+						
+				}
+			}
+    		
+    		return null;
+    	}
+    	else return null; // dummy
     }
 	
 	public List<Vector> getMatrix() {
@@ -117,6 +252,13 @@ public class Matrix {
 	}
 	
 	public List<Vector> sortMatrixList(List<Vector> vectors){
+		
+		if(inverse == null){
+			Matrix iTemp = new Matrix(dimension);
+			inverse = iTemp.getMatrix();
+		}
+			
+		
 		int[] rank = new int[vectors.size()];
 		int listDem =  vectors.get(0).getDimension();
 		
@@ -139,6 +281,7 @@ public class Matrix {
 					rank[i] -= rank[j];
 					//swap list
 					Collections.swap(vectors, i, j);
+					Collections.swap(inverse, i, j);
 				}
 			}
 		}

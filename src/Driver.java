@@ -35,8 +35,15 @@ public class Driver {
 		}
 		
 		System.out.println(matrix.det());
-		System.out.println(matrix.det());
-		System.out.println(matrix.det());
+		
+		for (int i = 0; i < matrix.getMatrix().size(); i++) {
+			Vector vector = matrix.getMatrix().get(i);
+			for (int j = 0; j < vector.getDimensions().length; j++)
+				System.out.print(vector.getDimensions()[j] + " ");
+			System.out.println();
+		}
+		
+		matrix.inverse();
 	}
 
 	
