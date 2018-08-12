@@ -101,6 +101,8 @@ public class Matrix {
     	Matrix temp = new Matrix( matrix, dimension);
 		List<Vector> tMatrix = temp.getMatrix();
 		tMatrix = Vector.inputConverter(tMatrix);
+		Vector orgVector = null;
+		Vector orgiVector = null;
 		
     	if(det() != 0){
     		//Step 1, Sort
@@ -128,19 +130,32 @@ public class Matrix {
 			for(int i = 0; i < dimension; i ++){
 				crrntTop = i;
 				for(int j = i; j < dimension; j++){
-					if(i == j && tMatrix.get(j).getDimensions()[i] != 1 && tMatrix.get(j).getDimensions()[i] != 0){
+					System.out.println(i + " " + j);
+					if(i == j && tMatrix.get(j).getDimensions()[i] != 0){
 						//DIVIDES TOP NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
+						orgiVector = inverse.get(j);
+						orgVector = tMatrix.get(j);
 						inverse.set(j, inverse.get(j).scale(1/tMatrix.get(crrntTop).getDimensions()[i]));
 						tMatrix.set(j, tMatrix.get(j).scale(1/tMatrix.get(crrntTop).getDimensions()[i]));
 						
 					}else if(i != j && tMatrix.get(j).getDimensions()[i] != 0){
 						//ALL SUBSEQUENT ROWS USE TOP ROW WITH 1, MULTIPLY 1 WITH THE NON 0 INT'S NEGATIVE, AND ADD DOWN  
+						
 						double scaleBy = -tMatrix.get(j).getDimensions()[i];
 						Vector scaledTemp = new Vector(dimension);
-						scaledTemp = tMatrix.get(crrntTop).scale(scaleBy);
-						tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
-						scaledTemp = inverse.get(crrntTop).scale(scaleBy);
-						inverse.set(j,inverse.get(j).add(scaledTemp));
+						
+						if(tMatrix.get(j).getDimensions()[i] != orgVector.getDimensions()[i]){
+							scaledTemp = tMatrix.get(crrntTop).scale(scaleBy);
+							tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
+							scaledTemp = inverse.get(crrntTop).scale(scaleBy);
+							inverse.set(j,inverse.get(j).add(scaledTemp));
+						}else {
+							scaledTemp = orgVector.scale(-1);
+							tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
+							scaledTemp = orgiVector.scale(-1);
+							inverse.set(j,inverse.get(j).add(scaledTemp));
+						}
+						
 						
 					}
 				}
@@ -182,8 +197,10 @@ public class Matrix {
 			for(int i = dimension -1; i >= 0; i--){
 				crrntBottom = i;
 				for(int j = i; j >= 0; j--){
-					if(i == j && tMatrix.get(j).getDimensions()[i] != 1 && tMatrix.get(j).getDimensions()[i] != 0){
+					if(i == j && tMatrix.get(j).getDimensions()[i] != 0){
 						//DIVIDES BOTTOM NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
+						orgiVector = inverse.get(j);
+						orgVector = tMatrix.get(j);
 						inverse.set(j, inverse.get(j).scale(1/tMatrix.get(crrntBottom).getDimensions()[i]));
 						tMatrix.set(j, tMatrix.get(j).scale(1/tMatrix.get(crrntBottom).getDimensions()[i]));
 						
@@ -191,15 +208,23 @@ public class Matrix {
 						//ALL SUBSEQUENT ROWS USE Bottom ROW WITH 1, MULTIPLY 1 WITH THE NON 0 INT'S NEGATIVE, AND ADD DOWN  
 						double scaleBy = -tMatrix.get(j).getDimensions()[i];
 						Vector scaledTemp = new Vector(dimension);
-						scaledTemp = tMatrix.get(crrntBottom).scale(scaleBy);
-						tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
-						scaledTemp = inverse.get(crrntBottom).scale(scaleBy);
-						inverse.set(j,inverse.get(j).add(scaledTemp));
+						
+						if(tMatrix.get(j).getDimensions()[i] != orgVector.getDimensions()[i]){
+							scaledTemp = tMatrix.get(crrntBottom).scale(scaleBy);
+							tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
+							scaledTemp = inverse.get(crrntBottom).scale(scaleBy);
+							inverse.set(j,inverse.get(j).add(scaledTemp));
+						}else {
+							scaledTemp = orgVector.scale(-1);
+							tMatrix.set(j,tMatrix.get(j).add(scaledTemp));
+							scaledTemp = orgiVector.scale(-1);
+							inverse.set(j,inverse.get(j).add(scaledTemp));
+						}
 					}
 				}
 				tMatrix = sortMatrixList(tMatrix);
 			}
-			/*
+			
 			System.out.println("after 3");
 			System.out.println("Matrix");
 			for(int i = 0; i < tMatrix.size(); i++){
@@ -215,7 +240,7 @@ public class Matrix {
 						   + inverse.get(i).getDimensions()[2] + ", "
 						   + inverse.get(i).getDimensions()[3] + ", ");
 			}
-			System.out.println();*/
+			System.out.println();
 			
 			//checks for all zero rows, to return null if found
 			for(int i = 0; i < tMatrix.size(); i ++){

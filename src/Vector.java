@@ -70,7 +70,7 @@ public class Vector {
 			for(int i = 0; i < listDem; i ++){
 				crrntTop = i;
 				for(int j = i; j < vectors.size(); j++){
-					if(i == j && vectors.get(j).getDimensions()[i] != 1 && vectors.get(j).getDimensions()[i] != 0){
+					if(i == j && vectors.get(j).getDimensions()[i] != 0){
 						//DIVIDES TOP NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
 						constants.getDimensions()[i] *= 1/vectors.get(crrntTop).getDimensions()[i];
 						vectors.set(j, vectors.get(j).scale(1/vectors.get(crrntTop).getDimensions()[i]));
@@ -117,7 +117,7 @@ public class Vector {
 			for(int i = listDem -1; i >= 0; i--){
 				crrntBottom = i;
 				for(int j = i; j >= 0; j--){
-					if(i == j && vectors.get(j).getDimensions()[i] != 1 && vectors.get(j).getDimensions()[i] != 0){
+					if(i == j && vectors.get(j).getDimensions()[i] != 0){
 						//DIVIDES BOTTOM NON ECHELON ROW BY THE FIRST NON ZERO INT, TO PRODUCES 1
 						constants.getDimensions()[i] *= 1/vectors.get(crrntBottom).getDimensions()[i];
 						vectors.set(j, vectors.get(j).scale(1/vectors.get(crrntBottom).getDimensions()[i]));
