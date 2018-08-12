@@ -35,7 +35,7 @@ public class Driver {
 		}
 		
 		System.out.println(matrix.det());
-		
+
 		Matrix matrixA;
 		List<Vector> vectorsA = new ArrayList<Vector>(); 
 		double[] vA1 = {1, 4};
@@ -46,9 +46,7 @@ public class Driver {
 		vectorsA.add(new Vector(vA3, 2));
 		
 		matrixA = new Matrix(vectorsA, vectorsA.size());
-		
-		
-		
+
 		System.out.println("Matrix A Dimensions: " + matrixA.getDimension());
 		System.out.println("Matrix A Size: " + matrixA.getMatrix().size());
 		
@@ -69,10 +67,8 @@ public class Driver {
 				System.out.print(vector.getDimensions()[j] + " ");
 			System.out.println();
 		}
-		
-		
+
+		matrix.inverse();
+
 	}
-
-	
-
 }
