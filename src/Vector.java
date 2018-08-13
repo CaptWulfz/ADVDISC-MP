@@ -3,6 +3,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class Vector {
+	/* ADVDISC MP Part 2 - S18
+	 * Non, Gary
+	 * Gana, Jordan
+	 * Martinez, Jarod
+	 * */
 	
 	private double[] dimensions;
 	private int dimension;

@@ -3,6 +3,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Matrix {
+	/* ADVDISC MP Part 2 - S18
+	 * Non, Gary
+	 * Gana, Jordan
+	 * Martinez, Jarod
+	 * */
+	
 	private Matrix iMatrix = null;
 	private List<Vector> matrix;
 	private List<Vector> inverse;
