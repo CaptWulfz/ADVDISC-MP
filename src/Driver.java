@@ -67,7 +67,28 @@ public class Driver {
 		}
 		
 		System.out.println("Inverse:");
-		matrix.inverse();
+		matrixC = matrix.inverse();
+		
+		for (int i = 0; i < matrixC.getMatrix().size(); i++) {
+			Vector vector = matrixC.getMatrix().get(i);
+			for (int j = 0; j < vector.getDimensions().length; j++)
+				System.out.print(vector.getDimensions()[j] + " ");
+			System.out.println();
+		}
+		
+		System.out.println(matrix.det());
+		
+		System.out.println("Inverse:");
+		matrixC = matrix.inverse();
+		
+		for (int i = 0; i < matrixC.getMatrix().size(); i++) {
+			Vector vector = matrixC.getMatrix().get(i);
+			for (int j = 0; j < vector.getDimensions().length; j++)
+				System.out.print(vector.getDimensions()[j] + " ");
+			System.out.println();
+		}
+		
+		System.out.println(matrix.det());
 
 	}
 }
