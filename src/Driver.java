@@ -26,6 +26,7 @@ public class Driver {
 		//System.out.println("Span: " + sample.span(vectors, constants.getDimension()));
 		// System.out.println("Span: " + sample.getSpan());
 		Matrix matrix = new Matrix(vectors, 4);
+		System.out.println("det: " + matrix.det());
 		
 		for (int i = 0; i < matrix.getMatrix().size(); i++) {
 			Vector vector = matrix.getMatrix().get(i);

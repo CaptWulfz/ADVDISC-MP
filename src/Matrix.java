@@ -269,4 +269,8 @@ public class Matrix {
 		
 		return vectors;
 	}
+	
+	public Matrix transpose(){
+		return new Matrix(matrix, dimension);
+	}
 }
